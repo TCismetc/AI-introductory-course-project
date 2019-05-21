@@ -1,0 +1,99 @@
+* {
+  color: white;
+  box-sizing: border-box;
+}
+
+body {
+  background: #34495e;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.title {
+  width: 500px;
+  margin:auto;
+  font-family: 'Damion', cursive;
+  font-size:80px;
+  top:70px;
+  position: relative;
+  text-shadow: 3px 3px 0px #2c3e50;
+}
+
+.menu {
+  position: fixed;
+  height: 100%;
+  width: 65px;
+  background: #2c3e50;
+  transition:width 1s;
+  overflow: hidden;
+  font-family: 'Michroma', sans-serif;
+  z-index: 99;
+}
+
+.menu:hover {
+  width: 220px;
+}
+
+.menuItem span {
+  position: absolute;
+  left:80px;
+  top:20px;
+  transition:color 1s;
+  color:rgba(255,255,255,0);
+}
+
+.menu:hover .menuItem  span {
+ color:rgba(255,255,255,1);
+}
+
+.menuItem {
+  position: relative;
+  padding: 20px;
+  transition:border .5s, background .2s;  
+}
+
+.menuItem:hover {
+  background: #34495e;
+  cursor: pointer;
+}
+
+.uno {
+  border-left:5px solid #16a085;
+}
+
+.uno:hover{
+  border-left:20px solid #16a085;
+}
+
+.dos {
+ border-left:5px solid #2980b9;
+}
+
+.dos:hover {
+ border-left:20px solid #2980b9;
+}
+
+.tres {
+  border-left:5px solid #8e44ad;
+}
+
+.tres:hover {
+  border-left:20px solid #8e44ad;
+}
+
+.cuatro {
+  border-left:5px solid #e67e22;
+}
+
+.cuatro:hover {
+  border-left:20px solid #e67e22;
+}
+
+.cinco {
+ border-left:5px solid #e74c3c;
+}
+
+.cinco:hover {
+ border-left:20px solid #e74c3c;
+}

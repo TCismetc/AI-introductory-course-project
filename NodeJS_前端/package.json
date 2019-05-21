@@ -1,0 +1,19 @@
+{
+  "name": "vwing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "IDE",
+    "Text",
+    "Editor"
+  ],
+  "author": "GCWing",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^4.0.3"
+  }
+}

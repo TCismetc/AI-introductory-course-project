@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>VWING </title>
+  <link rel="stylesheet" type="text/css" href="./css/start.css">
+
+<script>
+  const icp=require('electron').ipcRenderer
+
+  var progressbar={
+    init:function(){
+        var fill=document.getElementById('fill');
+        var count=0;
+    //通过间隔定时器实现百分比文字效果,通过计算CSS动画持续时间进行间隔设置
+        var timer=setInterval(function(e){
+            count++;
+            fill.innerHTML=count+'%';
+            if(count===100) clearInterval(timer);
+        },17);
+    }
+};
+progressbar.init();
+
+</script>
+
+</head>
+
+<body >
+
+  <!-- 外层容器-->
+  <div class="div_1">
+    <!-- 背景图-->
+    <div class="div_2"></div>
+
+    <!--进度条容器-->
+    <div id="progressbar">
+        <!--用来模仿进度条推进效果的进度条元素-->
+        <div id="fill"></div>
+    </div><br>
+
+    <!-- 底部元素容器-->
+      <span class="span_sf">
+        <img src="./figure/start_sf.png" height="155px" width="30px" >
+      </span>
+      <span class="span_text"> 
+        <p class="text_title"><img src="./figure/start_ic_1.png" height="40px" width="30px">VWING</p>
+        <p class="text_t1">Virtual Compiler for Wing</p><br/>
+        <p class="text_t2">Programming like a jigsaw puzzle makes development easier</p>
+        <hr>
+        <p class="text_t2"> Version: v-1.0  2018.12.1 </p>
+      </span>
+
+    <div class="div_bottom"></div>
+  </div>
+</body>
+</html>

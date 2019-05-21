@@ -1,0 +1,113 @@
+
+body
+{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    height: 550px;
+    width: 400px;
+}
+
+p
+{
+    margin:20px auto;
+}
+
+
+
+.div_1
+{ 
+
+    height: 550px;
+    width: 400px;
+} 
+
+.div_2
+{ 
+    background-image: url(../figure/start_bg.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    height: 300px;
+    width: 400px;
+} 
+
+.span_sf
+{ 
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 30px;
+
+} 
+.span_text
+{ 
+    float:right;
+    display: inline-block;
+    line-height:3px;
+    margin-right: 10px;
+
+} 
+
+.text_title
+{
+    text-align:right;
+    color :#34495E;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.text_t1
+{
+    text-align:right;
+    color :#5D6379;
+    font-size: 20px;
+}
+
+.text_t2
+{
+    text-align:right;
+    color :#5D6379;
+    font-weight: bold;
+    font-size: 12px;
+
+}
+.hr
+{
+    border:3 solid #616060;
+}
+
+
+.div_bottom
+{ 
+   background-image: url(../figure/start_bottom.png);
+    height: 30px;
+    width: 400px;
+    position:absolute;
+    bottom:0;
+} 
+
+
+#progressbar{
+    background: darkgray;
+    position: absolute;
+    width:400px;
+    height:10px;
+
+
+}
+/*在进度条元素上调用动画*/
+#fill{
+    width:40px;
+    animation: move 2s;
+    text-align: center;
+    background-color: #6caf00;
+}
+/*实现元素宽度的过渡动画效果*/
+@keyframes move {
+    0%{
+        width:0;
+
+    }
+    100%{
+        width:100%;
+    }
+}

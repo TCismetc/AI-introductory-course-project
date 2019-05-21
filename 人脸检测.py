@@ -1,17 +1,18 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[7]:
 
 from PIL import Image,ImageDraw,ImageFont
 import cv2
-import face_recognition 
+from face_recognition import face_locations,face_encodings,compare_faces,face_distance,load_image_file
 import os
 import numpy as np
 import shutil
+import sys
 
 
-# In[2]:
+# In[8]:
 
 def change_cv2_draw(image,strs,local,sizes,colour):
     cv2img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -23,16 +24,18 @@ def change_cv2_draw(image,strs,local,sizes,colour):
     return image
 
 
-# In[3]:
+# In[13]:
 
 def show():
-    video_capture = cv2.VideoCapture(0)
+    #video_capture = cv2.VideoCapture(0)
+    path_video="http://admin:admin@192.168.43.249:8081/"
+    video_capture =cv2.VideoCapture(path_video)
     known_face_encodings=np.load('data_base/persons_encoding.npy')
     known_face_names=np.load('data_base/persons_name.npy')
 
     # Initialize some variables
-    face_locations = []
-    face_encodings = []
+    face_locationss = []
+    face_encodingss = []
     face_names = []
     process_this_frame = True
 
@@ -45,6 +48,7 @@ def show():
         ret, frame = video_capture.read(0)
 
         # Resize frame of video to 1/4 size for faster face recognition processing
+        #print(frame)
         if frame is not None:
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
@@ -57,13 +61,13 @@ def show():
         # Only process every other frame of video to save time
         if process_this_frame:
             # Find all the faces and face encodings in the current frame of video
-            face_locations = face_recognition.face_locations(rgb_small_frame)
-            face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
+            face_locationss = face_locations(rgb_small_frame)
+            face_encodingss = face_encodings(rgb_small_frame, face_locationss)
 
             face_names = []
-            for face_encoding in face_encodings:
+            for face_encoding in face_encodingss:
                 # See if the face is a match for the known face(s)
-                matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
+                matches = compare_faces(known_face_encodings, face_encoding)
                 name = "Unknown"
 
                 # # If a match was found in known_face_encodings, just use the first one.
@@ -72,8 +76,8 @@ def show():
                 #     name = known_face_names[first_match_index]
 
                 # Or instead, use the known face with the smallest distance to the new face
-                face_distances = face_recognition.face_distance(known_face_encodings, face_encoding)
-                best_match_index = np.argmin(face_distances)
+                face_distancess = face_distance(known_face_encodings, face_encoding)
+                best_match_index = np.argmin(face_distancess)
                 if matches[best_match_index]:
                     name = known_face_names[best_match_index]
 
@@ -85,7 +89,7 @@ def show():
 
         # Display the results
         img=frame
-        for (top, right, bottom, left), name in zip(face_locations, face_names):
+        for (top, right, bottom, left), name in zip(face_locationss, face_names):
             # Scale back up face locations since the frame we detected in was scaled to 1/4 size
             top *= 4
             right *= 4
@@ -103,6 +107,8 @@ def show():
                 img=change_cv2_draw(img,name,(left + 60, bottom-30 ),25,'black')
         # Display the resulting image
         cv2.imshow('Video',img)
+        path_pic='middle_pic\\'+str(count)+'.jpg'
+        cv2.imwrite(path_pic,img)
 
         # Hit 'q' on the keyboard to quit!
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -113,9 +119,9 @@ def show():
     cv2.destroyAllWindows()
 
 
-# In[4]:
+# In[14]:
 
-def load_info(path):
+def load_info(path="add_pic"):
     #path  模型数据图片目录
     encodings=np.load('data_base/persons_encoding.npy')
     names=np.load('data_base/persons_name.npy')
@@ -129,9 +135,9 @@ def load_info(path):
         total_face_encoding.append(
             #encoding 返回一个np.array（face1,face2） 每一张脸是一个128维（元素）组成的数组
             #encodings()[0] 表示选取该图片中 最有可能为脸的一个编码了的位置
-            face_recognition.face_encodings(
+            face_encodings(
                 #load_image_file 直接出来三通道RGB 
-                face_recognition.load_image_file(full_path))[0])
+                load_image_file(full_path))[0])
         fn = fn[:(len(fn) - 4)]  #截取图片名（这里应该把images文件中的图片名命名为为人物名）
         total_image_name.append(fn)  #图片名字列表
         shutil.move(full_path,newpos)
@@ -141,7 +147,7 @@ def load_info(path):
     np.save('data_base/persons_name',np.r_[names,name1])
 
 
-# In[5]:
+# In[15]:
 
 def initial_info():
     path = "img"  # 模型数据图片目录
@@ -154,30 +160,21 @@ def initial_info():
         total_face_encoding.append(
             #encoding 返回一个np.array（face1,face2） 每一张脸是一个128维（元素）组成的数组
             #encodings()[0] 表示选取该图片中 最有可能为脸的一个编码了的位置
-            face_recognition.face_encodings(
+            face_encodings(
                 #load_image_file 直接出来三通道RGB 
-                face_recognition.load_image_file(path + "/" + fn))[0])
+                load_image_file(path + "/" + fn))[0])
         fn = fn[:(len(fn) - 4)]  #截取图片名（这里应该把images文件中的图片名命名为为人物名）
         total_image_name.append(fn)  #图片名字列表
     np.save('data_base/persons_encoding',total_face_encoding)
     np.save('data_base/persons_name',total_image_name)
 
 
-# In[5]:
-
-initial_info()
-
-
-# In[6]:
-
-load_info('add_pic')
-
-
-# In[7]:
+# In[17]:
 
 show()
 
 
-# 初步想法：
-# 1、有一个 照片录入 信息收集端
-# 2、通过摄像头 识别人物；识别启动端
+# In[ ]:
+
+
+

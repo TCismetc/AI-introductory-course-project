@@ -1,0 +1,59 @@
+
+body{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color:rgb(248, 248, 248);
+	}
+
+#div_menu
+{
+	text-align: center;
+	line-height:50px;
+    width: 100%;
+	height: 50px;
+}
+
+#div_mainspace
+{
+    width: 100%;
+	position: absolute;
+    top: 50px;
+    bottom: 0px;
+    left: 0px;
+}
+
+
+#workspace
+{
+
+    width: 100%;
+	height: 100%;
+
+}
+
+#div_space
+{
+    width: 100%;
+	height: 80%;
+
+}
+
+#div_log
+{
+    width: 100%;
+    height: 20%;
+	background: #aedadd ;
+}
+
+.menu_button
+{
+	background: rgb(248, 248, 248);
+	display:inline;
+	color :#34495E;
+    font-weight: bold;
+	font-size: 20px;
+	margin:10px 10px;
+}
+
